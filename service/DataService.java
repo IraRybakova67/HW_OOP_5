@@ -24,7 +24,7 @@ public class DataService {
 
     private int getMaxID(Type type) {
         boolean itsStudent = type == Type.STUDENT;
-        int maxID = 0;
+        int maxID = 1;
         for (User user : userList) {
             if (user instanceof Student && itsStudent) {
                 maxID = ((Student) user).getStudentID() + 1;
@@ -52,29 +52,18 @@ public class DataService {
         }
         return resultList;
     }
-    public User getUserById(Type type, int id){  //реализован поиск user по id
+
+    public User getUserById(Type type, int id) { // реализован поиск user по id
         boolean itsStudent = Type.STUDENT == type;
-        for(User user: userList){
-            if(user instanceof Teacher && !itsStudent && ((Teacher) user).getTeacherID() == id){
+        for (User user : userList) {
+            if (user instanceof Teacher && !itsStudent && ((Teacher) user).getTeacherID() == id) {
                 return user;
             }
-            if(user instanceof Student && itsStudent && ((Student) user).getStudentID() == id){
+            if (user instanceof Student && itsStudent && ((Student) user).getStudentID() == id) {
                 return user;
             }
         }
         return null;
     }
-    // public List<User> getAllUser(){ 
-    //     return userList;
-    // }
 
-    // public List<User> getAllStudent(){
-    //     List<User> resultList = new ArrayList<>();
-    //     for(User user : userList){
-    //         if (user instanceof Student){
-    //             resultList.add(user);
-    //         }
-    //     }
-    //     return resultList;
-    // }
 }

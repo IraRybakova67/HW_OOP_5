@@ -1,16 +1,17 @@
 package controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.GroupLayout.Group;
-
+import model.Group;
 import model.Student;
 import model.Teacher;
 import model.Type;
 import model.User;
 import service.DataService;
 import service.GroupService;
+import view.GroupView;
 import view.StudentView;
 import view.TeacherView;
 
@@ -18,7 +19,9 @@ public class Controller {
     private final DataService dataService = new DataService();
     private final StudentView studentView = new StudentView();
     private final TeacherView teacherView = new TeacherView();
-    
+    private final GroupView groupView = new GroupView();
+    private final GroupService groupService = new GroupService();
+
     public void createStudent(String firstName, String secondName, String lastName) {
         dataService.create(firstName, secondName, lastName, Type.STUDENT);
     }
@@ -38,59 +41,76 @@ public class Controller {
             teacherView.printOnConsole((Teacher) user);
         }
     }
-    public void finedTeacher(int id ){
-        dataService.getUserById(Type.TEACHER, id);
-        toString();
-        
 
-    }
-    private GroupService groupService;
-
-    public Controller(GroupService groupService) {
-        this.groupService = groupService;
-
-    }
-    public Group createGroup(int numGroup,int teacherID, List <Integer> studentIDs){
+    public Integer getGroupNumber() {// присвоить номер группе
+        int number;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите номер группы");
-        numGroup = scanner.nextInt();
-        
-        System.out.println("ID педагога");
-        teacherID = scanner.nextInt();
-                  
-        
-        System.out.println("Введите числа через запятую, когда закончите - введите 0");
-
-        studentIDs = new ArrayList<>();
-        // List<Integer> numbers = new ArrayList<>();
-        while (true) {
-            int number = Integer.valueOf(scanner.next());
-            if (number == 0) {
-                break;
-            }
-            studentIDs.add(number);
-        }
-
-        for (int number : studentIDs) {
-            System.out.printf("%d ", number);
-        }
-        
-
+        number = scanner.nextInt();
+        return number;
 
     }
 
+    public User getGroupTeacher() { // назначить преподавателя группы
+        int id;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите ID педагога");
+        id = scanner.nextInt();
+
+        // scanner.close();
+        return dataService.getUserById(Type.TEACHER, id);
+
+    }
 
     
-    
+    public List<User> studentsInGroup() { // подбираем студентов в группу
 
+        List<User>studentsGroup = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите ID студентов, закончите - введите 0");
+ 
 
+        while (true) {
 
+            int number = scanner.nextInt();
 
-            
-    
-}
+            studentsGroup.add(dataService.getUserById(Type.STUDENT, number));
+
+            if (number == 0) {
+
+                break;
+            }
+
+        }
         
+        return studentsGroup;
 
+    }
+
+    // public void createGroup(){
+        
+    // getGroupNumber();
+    // getGroupTeacher();
+    // studentsInGroup();
+    
+    // }
+    // public void getPrintGroup(){
+    //     groupView.printOnConsole(null);
+    // }
+    public void createGroup(int numberGroup, User teacherGroup, List<User> students){
+        Group group = new Group(numberGroup, teacherGroup, students);
+
+
+        numberGroup = getGroupNumber();
+        teacherGroup = getGroupTeacher();
+        students = studentsInGroup();
+        group =groupService.createGroup(numberGroup, teacherGroup, students);
+        groupView.printOnConsole(group);
+
+        
+        
+    }
     
 
+}
 

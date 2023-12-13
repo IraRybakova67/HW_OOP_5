@@ -15,17 +15,25 @@ public class Main {
         controller.createStudent("Татьяна", "Петровна", "Семёнова");
 
 
-        controller.getAllStudent();
-        System.out.println();
+        // controller.getAllStudent();
+        // System.out.println();
 
         controller.createTeacher("Антонина", "Георгиевна", "Сомова");
         controller.createTeacher("Марат", "Эрнстович", "Танагузов");
              
 
-        controller.getAllTeacher();
+        // controller.getAllTeacher();
+        // System.out.println();
         
-        controller.finedTeacher(1);
+        // controller.createGroup();
+        // controller.getPrintGroup();
+        controller.createGroup(0, null, null);
+
+
         
+        
+
+
 
 
         

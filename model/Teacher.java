@@ -21,8 +21,8 @@ public class Teacher extends User {
 
     @Override
     public String toString() {
-        return "Учитель [" + "ID =" + teacherID + " + Имя = " + super.getFirstName() + " + Отчество = "
-                + super.getSecondName() + " + Фамилия = " + super.getLastName();
+        return " Педагог [" + "ID =" + teacherID + " Имя: " + super.getFirstName() + "  Отчество: "
+                + super.getSecondName() + " + Фамилия: " + super.getLastName();
     }
 
     
