@@ -25,8 +25,6 @@ public class Main {
         // controller.getAllTeacher();
         // System.out.println();
         
-        // controller.createGroup();
-        // controller.getPrintGroup();
         controller.createGroup(0, null, null);
 
 
