@@ -62,13 +62,11 @@ public class Controller {
 
     }
 
-    
     public List<User> studentsInGroup() { // подбираем студентов в группу
 
-        List<User>studentsGroup = new ArrayList<>();
+        List<User> studentsGroup = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите ID студентов, закончите - введите 0");
- 
 
         while (true) {
 
@@ -82,35 +80,21 @@ public class Controller {
             }
 
         }
-        
+
         return studentsGroup;
 
     }
 
-    // public void createGroup(){
+
+    public void createGroup() {
         
-    // getGroupNumber();
-    // getGroupTeacher();
-    // studentsInGroup();
-    
-    // }
-    // public void getPrintGroup(){
-    //     groupView.printOnConsole(null);
-    // }
-    public void createGroup(int numberGroup, User teacherGroup, List<User> students){
-        Group group = new Group(numberGroup, teacherGroup, students);
 
-
-        numberGroup = getGroupNumber();
-        teacherGroup = getGroupTeacher();
-        students = studentsInGroup();
-        group =groupService.createGroup(numberGroup, teacherGroup, students);
+        int numberGroup = getGroupNumber();
+        User teacherGroup = getGroupTeacher();
+        List<User> students = studentsInGroup();
+        Group group = groupService.createGroup(numberGroup, teacherGroup, students);
         groupView.printOnConsole(group);
 
-        
-        
     }
-    
 
 }
-
